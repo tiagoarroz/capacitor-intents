@@ -24,6 +24,9 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.os.PowerManager;
 
 @CapacitorPlugin(name = "CapacitorIntentsPlugin")
 public class CapacitorIntents extends Plugin {
@@ -202,6 +205,7 @@ public class CapacitorIntents extends Plugin {
             intentJSON.put("component", intent.getComponent());
             intentJSON.put("data", intent.getData());
             intentJSON.put("package", intent.getPackage());
+            intentJSON.put("pttType", intent.getStringExtra("originalAction"));  // For PTT-specific type
 
             return intentJSON;
         } catch (JSONException e) {
@@ -210,6 +214,39 @@ public class CapacitorIntents extends Plugin {
             Log.d(LOG_TAG, Arrays.toString(e.getStackTrace()));
 
             return null;
+        }
+    }
+
+    @PluginMethod
+    public void startPttService(PluginCall call) {
+        Log.d("CapacitorIntents", "startPttService called from JS");
+        try {
+            Intent serviceIntent = new Intent(getContext(), PttForegroundService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                getContext().startForegroundService(serviceIntent);
+            } else {
+                getContext().startService(serviceIntent);
+            }
+            Log.d("CapacitorIntents", "Service intent sent successfully");
+            call.resolve();
+        } catch (Exception e) {
+            Log.e("CapacitorIntents", "Failed to start PTT service: " + e.getMessage(), e);
+            call.reject("Failed to start service: " + e.getMessage());
+        }
+    }
+    
+
+    @PluginMethod
+    public void stopPttService(PluginCall call) {
+        Log.d("CapacitorIntents", "stopPttService called from JS");
+        try {
+            Intent serviceIntent = new Intent(getContext(), PttForegroundService.class);
+            getContext().stopService(serviceIntent);
+            Log.d("CapacitorIntents", "Service stop intent sent");
+            call.resolve();
+        } catch (Exception e) {
+            Log.e("CapacitorIntents", "Failed to stop PTT service: " + e.getMessage(), e);
+            call.reject("Failed to stop service: " + e.getMessage());
         }
     }
 }

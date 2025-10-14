@@ -7,4 +7,8 @@ export interface CapacitorIntentsPlugin {
   unregisterBroadcastReceiver(options: { id: string }): Promise<void>;
 
   sendBroadcastIntent(options: { action: string; value: { [key: string]: any } }): Promise<void>;
+
+  // New methods for PTT service
+  startPttService(): Promise<void>;
+  stopPttService(): Promise<void>;
 }

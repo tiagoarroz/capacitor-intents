@@ -1,2 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Required for foreground services (Android 9+) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- For phone call/voice communication type (Android 14+; PTT qualifies as high-priority comms) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
+    <!-- Optional: Helps keep service awake during events -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 </manifest>
