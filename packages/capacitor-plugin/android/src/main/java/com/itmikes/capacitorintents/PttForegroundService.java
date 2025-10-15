@@ -134,16 +134,16 @@ public class PttForegroundService extends Service {
     private void registerPttReceiver() {
         IntentFilter filter = new IntentFilter();
         // Hardcoded for Ulefone (add others as needed; could pass via intent extras for generality)
-        filter.addAction("com.ulefone.ptt.key.down");
-        filter.addAction("com.ulefone.ptt.key.up");
+        // filter.addAction("com.ulefone.ptt.key.down");
+        // filter.addAction("com.ulefone.ptt.key.up");
         filter.addAction("android.intent.action.PTT.down");
         filter.addAction("android.intent.action.PTT.up");
-        filter.addAction("com.sonim.intent.action.PTT_KEY_DOWN");
-        filter.addAction("com.sonim.intent.action.PTT_KEY_UP");
-        filter.addAction("com.runbo.ptt.key.down");
-        filter.addAction("com.runbo.ptt.key.up");
-        filter.addAction("com.ptt.key.down");
-        filter.addAction("com.ptt.key.up");
+        // filter.addAction("com.sonim.intent.action.PTT_KEY_DOWN");
+        // filter.addAction("com.sonim.intent.action.PTT_KEY_UP");
+        // filter.addAction("com.runbo.ptt.key.down");
+        // filter.addAction("com.runbo.ptt.key.up");
+        // filter.addAction("com.ptt.key.down");
+        // filter.addAction("com.ptt.key.up");
         // filter.addAction("com.zello.ptt.down");
         // filter.addAction("com.zello.ptt.up");
         try {
