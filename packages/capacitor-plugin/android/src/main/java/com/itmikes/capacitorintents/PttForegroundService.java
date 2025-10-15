@@ -130,8 +130,11 @@ public class PttForegroundService extends Service {
         } catch (Exception e) {
             Log.e(TAG, "Error stopping recorder on destroy: " + e.getMessage());
         }
-        mediaRecorder.release();
-        mediaRecorder = null;
+        if(mediaRecorder != null)
+        {
+            mediaRecorder.release();
+            mediaRecorder = null;
+        }
         if (audioFocusRequest != null) {
             audioManager.abandonAudioFocusRequest(audioFocusRequest);
         }
