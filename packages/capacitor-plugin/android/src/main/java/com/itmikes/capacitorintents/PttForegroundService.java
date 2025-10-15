@@ -311,8 +311,8 @@ public class PttForegroundService extends Service {
         );
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("PTT Listening Active")
-            .setContentText("Ready for PTT button presses")
+            .setContentTitle("PTT ativo")
+            .setContentText("Pressione o botão lateral para falar")
             .setSmallIcon(android.R.drawable.ic_btn_speak_now)  // Use system icon; replace with custom if added to res
             .setContentIntent(pendingIntent)
             .setOngoing(true)
