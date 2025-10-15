@@ -299,6 +299,7 @@ public class PttForegroundService extends Service {
                 }
 
                 sendBroadcast(localIntent);
+                localIntent.putExtra("receiveTimestamp", System.currentTimeMillis());
             }
         };
     }
