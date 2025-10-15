@@ -298,8 +298,8 @@ public class PttForegroundService extends Service {
                     }
 
                     if (mediaRecorder != null) {
-                    mediaRecorder.release();
-                    mediaRecorder = null;
+                        mediaRecorder.release();
+                        mediaRecorder = null;
                     }
 
                     // Release focus/wake
