@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.Build;
 import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import java.io.File;
@@ -45,6 +46,9 @@ public class PttForegroundService extends Service {
 
     private boolean isRecording = false;
 
+    private String notificationTitle = "Modo de escuta";  // Default for non-PTT devices
+    private String notificationText = "Clique na notificação para abrir a aplicação";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -56,6 +60,15 @@ public class PttForegroundService extends Service {
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PTT:WakeLock");
+
+        String deviceModel = Build.MODEL.toLowerCase();
+        if (deviceModel.contains("armor x12 pro")) {  // Customize for your PTT models
+            notificationTitle = "PTT ativo";
+            notificationText = "Pressione o botão lateral para falar";
+            Log.d(TAG, "PTT device detected: " + deviceModel + " - Using PTT notification");
+        } else {
+            Log.d(TAG, "Non-PTT device: " + deviceModel + " - Using listening notification");
+        }
 
         // Initialize MediaRecorder for PTT
         // initializeMediaRecorder();
