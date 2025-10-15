@@ -133,6 +133,7 @@ public class PttForegroundService extends Service {
 
     private void registerPttReceiver() {
         IntentFilter filter = new IntentFilter();
+        filter.setPriority(1000);
         // Hardcoded for Ulefone (add others as needed; could pass via intent extras for generality)
         // filter.addAction("com.ulefone.ptt.key.down");
         // filter.addAction("com.ulefone.ptt.key.up");
